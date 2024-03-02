@@ -19,7 +19,7 @@ async function login(login, password) {
 	 }
 }
 
-async function register(login, password) {
+async function register(login, firstName, lastName, password) {
  const userRef = db.collection('users');
  const encryptedPassword = await hash(password, Number(process.env.SALT));
  const querySnapshot = await userRef.where('login', '==', login).get();
@@ -28,10 +28,28 @@ async function register(login, password) {
  } else {
 	 await userRef.doc(uuidv4()).set({
 	login,
+	firstName,
+	lastName,
 	password: encryptedPassword
  })
  return 'Registered';
  }
 }
 
-module.exports = { login, register };
+async function getOneUser(login) {
+	const userRef = db.collection('users');
+	const querySnapshot = await userRef.where('login', '==', login).get();
+	if (!querySnapshot.empty) {
+		return querySnapshot.docs[0].data();
+ 	} else {
+	 	return 'There is no user with that nickname';
+	 }
+}
+
+async function getAllUsers() {
+	const userRef = db.collection('users');
+	const querySnapshots = await userRef.get();
+	return querySnapshots.docs.map(doc => doc.data());
+}
+
+module.exports = { login, register, getOneUser, getAllUsers };
