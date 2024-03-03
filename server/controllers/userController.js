@@ -10,12 +10,12 @@ async function login(login, password) {
 		const user = querySnapshot.docs[0].data();
 		const isPasswordCorrect = await compare(password, user.password);
 		if (isPasswordCorrect) {
-			return 'Logged in';
+			return {login: user.login, firstName: user.firstName, lastName: user.lastName};
 		} else {
-			return 'Incorrect login or password';
+			return {eMsg: 'Incorrect login or password'};
 		}
  	} else {
-	 	return 'Incorrect login or password'
+	 	return {eMsg: 'Incorrect login or password'};
 	 }
 }
 
@@ -24,7 +24,7 @@ async function register(login, firstName, lastName, password) {
  const encryptedPassword = await hash(password, Number(process.env.SALT));
  const querySnapshot = await userRef.where('login', '==', login).get();
  if (!querySnapshot.empty) {
-	return 'User already exists';
+	return {eMsg: 'User already exists'};
  } else {
 	 await userRef.doc(uuidv4()).set({
 	login,
@@ -32,7 +32,7 @@ async function register(login, firstName, lastName, password) {
 	lastName,
 	password: encryptedPassword
  })
- return 'Registered';
+ return {msg: 'Registered'};
  }
 }
 
@@ -42,7 +42,7 @@ async function getOneUser(login) {
 	if (!querySnapshot.empty) {
 		return querySnapshot.docs[0].data();
  	} else {
-	 	return 'There is no user with that nickname';
+	 	return {eMsg: 'There is no user with that nickname'};
 	 }
 }
 
