@@ -1,0 +1,19 @@
+### Register
+POST http://localhost:8000/users/register
+Content-Type: application/json
+
+{
+	"login": "bulldog",
+	"firstName": "John",
+	"lastName": "Doe",
+	"password": "test"
+}
+
+### Login
+POST http://localhost:8000/users/login
+Content-Type: application/json
+
+{
+	"login": "jane",
+	"password": "test"
+}

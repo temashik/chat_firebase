@@ -1,0 +1,16 @@
+### CreateChat
+POST http://localhost:8000/chats/create
+Content-Type: application/json
+
+{
+	"firstUser": "dave",
+	"secondUser": "bob"
+}
+
+### CreateChat
+GET  http://localhost:8000/chats/userChats/dave
+Content-Type: application/json
+
+### FindChat
+GET  http://localhost:8000/chats/chat/fd5a2f88-63a9-41c1-91ba-7d9c83daea6e
+Content-Type: application/json
