@@ -1,5 +1,5 @@
 const express = require('express');
-const { login, register } = require('../controllers/userController');
+const { login, register, getOneUser, getAllUsers } = require('../controllers/userController');
 
 const UsersRouter = express.Router();
 
@@ -38,6 +38,24 @@ UsersRouter.post('/login', async (req, res) => {
 		return;
 	}
 	res.json(loginResult);
+});
+
+UsersRouter.get('/user/:login', async (req, res) => {
+	try {
+		const user = await getOneUser(req.params.login);
+		res.json(user);
+	} catch(e) {
+		res.status(500).message(e.message)
+	}
+});
+
+UsersRouter.get('/users', async (req, res) => {
+	try {
+		const users = await getAllUsers();
+		res.json(users);
+	} catch(e) {
+		res.status(500).message(e.message)
+	}
 });
 
 module.exports = UsersRouter;

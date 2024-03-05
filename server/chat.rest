@@ -7,7 +7,7 @@ Content-Type: application/json
 	"secondUser": "bob"
 }
 
-### CreateChat
+### GetAllUserChats
 GET  http://localhost:8000/chats/userChats/dave
 Content-Type: application/json
 

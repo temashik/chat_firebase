@@ -4,8 +4,8 @@ Content-Type: application/json
 
 {
 	"sender": "dave",
-	"chatId": "9ee47bce-4802-4ddf-b2b6-660edc3888b6",
-	"text": "Hello!"
+	"chatId": "e643469f-8c26-4835-8aab-a3465702de91",
+	"text": "Hello, John!"
 }
 
 ### GetAllMessages
