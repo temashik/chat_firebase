@@ -2,7 +2,7 @@ import { Container, Nav, Navbar, Stack } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import {Link} from "react-router-dom";
 import { logout } from "../redux/slices/userSlice";
-import { RootState, useAppDispatch } from "../redux/store";
+import { RootState } from "../redux/store";
 
 function NavigationBar() {
 	const user = useSelector((state: RootState) => state.user.user);

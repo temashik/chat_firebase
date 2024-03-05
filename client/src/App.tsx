@@ -2,6 +2,7 @@ import {Routes, Route, Navigate} from 'react-router-dom';
 import Chat from './pages/Chat';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import './index.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Container} from "react-bootstrap"
 import { useSelector } from 'react-redux'

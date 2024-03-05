@@ -1,10 +1,23 @@
 import { configureStore } from "@reduxjs/toolkit";
 import UserReducer from "./slices/userSlice";
+import RecipientReducer from "./slices/recipientSlice";
+import ChatReducer from "./slices/chatsSlice";
+import AllUsersReducer from "./slices/allUsersSlice";
+import NewChatReducer from "./slices/newChatSlice";
+import CurrentChatReducer from "./slices/currentChatSlice";
+import MessagesReducer from "./slices/messagesSlice";
 import { useDispatch } from "react-redux";
+import messagesSlice from "./slices/messagesSlice";
 
 export const store = configureStore({
 	reducer: {
 		user: UserReducer,
+		chats: ChatReducer,
+		recipient: RecipientReducer,
+		allUsers: AllUsersReducer,
+		newChat: NewChatReducer,
+		currentChat: CurrentChatReducer,
+		messages: messagesSlice,
 	},
 });
 

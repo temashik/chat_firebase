@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
 import axios from "../../axios";
 
 export interface IUserCredentials {
@@ -23,7 +22,6 @@ export const loginUser = createAsyncThunk(
 	"users/login",
 	async (creds: IUserCredentials) => {
 		const { data } = await axios.post("/users/login", creds);
-		console.log("data", data);
 		return data;
 	}
 );
@@ -57,14 +55,13 @@ export const userSlice = createSlice({
 			.addCase(loginUser.rejected, (state, action) => {
 				state.user = null;
 				state.loading = false;
-				console.log(action.error.message);
 				if (
-					action.error.message ==
+					action.error.message ===
 					"Request failed with status code 403"
 				) {
 					state.error = "You must fill all fields";
 				} else if (
-					action.error.message ==
+					action.error.message ===
 					"Request failed with status code 401"
 				) {
 					state.error = "Incorrect login or password";

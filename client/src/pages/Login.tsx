@@ -9,7 +9,6 @@ function Login() {
 	const [password, setPassword] = useState('');
 	const loading = useSelector((state: RootState) => state.user.loading)
 	const error = useSelector((state: RootState) => state.user.error)
-	const user = useSelector((state: RootState) => state.user.user)
 	const dispatch = useAppDispatch()
 	const loginRequest = async (e: any) => {
 		e.preventDefault();
@@ -18,11 +17,6 @@ function Login() {
 			password
 		};
 		dispatch(loginUser(userCredentials));
-		// if (error != null) {
-		// 	console.log('error', error);
-		// } else {
-		// 	console.log('user', user);
-		// }
 	}
  return (
     <>
