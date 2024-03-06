@@ -4,6 +4,19 @@ body {
   color: whitesmoke !important; 
 }
 
+input {
+  border-color: rgb(176, 92, 255);
+  width: 100%;
+  color: whitesmoke;
+  border: 0.2;
+  padding: 1ch;
+  margin: 0;
+  border-radius: 10px;
+  
+  background: transparent;
+  font: 13px sans-serif
+}
+
 .all-users {
   display: flex;
   margin-bottom: 1rem;
@@ -60,6 +73,8 @@ body {
 .chat-box {
   max-height: calc(100vh - 10rem);
   overflow-y: auto;
+  scrollbar-color: rgb(72, 3, 119) rgb(25, 25, 25);
+  scrollbar-width: thin;
   background: rgb(25, 25, 25);
   border-radius: 10px;
 }
@@ -111,9 +126,18 @@ body {
   padding: 1rem;
 }
 
+.focused-button {
+  border: none;
+    background: rgb(174, 0, 255);
+    color: white;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
 .send-btn {
   border: none;
-  background: rgba(72, 112, 223, 1);
+  background: rgba(115, 0, 230, 1);
   color: white;
   height: 40px;
   width: 40px;

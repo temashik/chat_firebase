@@ -34,10 +34,10 @@ function Chat() {
           <Stack className="messages-box flex-grow-0 pe-3" gap={3}>
             {loading && chats.length > 0 ? <p>Loading</p> :
             chats.map((chat: IChatData, index: number) => {
-              const recipientLogin = chat.users.find((rcp:string) => rcp !=user!.login);
+              const recipientLogin = chat.users.find((rcp:string) => rcp !== user!.login);
               const recipient = allUsers.find((rcp: any) => rcp.login === recipientLogin)
               return(
-                <div key={index} className={activeChat == index ?'highlighted-chat' : ''} onClick={() => {
+                <div key={index} className={activeChat === index ?'highlighted-chat' : ''} onClick={() => {
                   dispatch(setCurrentChat(chat));
                   setActiveChat(index);
                 }}>
