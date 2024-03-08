@@ -8,6 +8,7 @@ import { getAllUsers } from "../redux/slices/allUsersSlice";
 function PotentialChats(props: any) {
 	const user = useSelector((state: RootState) => state.user.user);
   const allUsers = useSelector((state: RootState) => state.allUsers.users);
+  const onlineUsers = useSelector((state: RootState) => state.onlineUsers.users);
 
 	let potentialChatUsers: any = null;
 	if (user && allUsers) {
@@ -34,7 +35,7 @@ function PotentialChats(props: any) {
 							dispatch(createNewChat({firstUser: user!.login, secondUser: potUser.login}));
 						}}>
 							{potUser.firstName + " " + potUser.lastName}
-							<span className="user-online"></span>
+							<span className={onlineUsers.some((user) => user?.login === potUser.login) ? "user-online" : ""}></span>
 						</div>
 					)
 				})}

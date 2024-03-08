@@ -6,6 +6,10 @@ import NewChatReducer from "./slices/newChatSlice";
 import CurrentChatReducer from "./slices/currentChatSlice";
 import MessagesReducer from "./slices/messagesSlice";
 import NewMessageReducer from "./slices/newMessageSlice";
+import DeleteMessageReducer from "./slices/deleteSlice";
+import EditMessageReducer from "./slices/editSlice";
+import NewMediaMessageReducer from "./slices/newMediaMessageSlice";
+import OnlineUsersReducer from "./slices/onlineUsersSlice";
 import { useDispatch } from "react-redux";
 
 export const store = configureStore({
@@ -17,6 +21,10 @@ export const store = configureStore({
 		currentChat: CurrentChatReducer,
 		messages: MessagesReducer,
 		newMessage: NewMessageReducer,
+		deleteMessage: DeleteMessageReducer,
+		editMessage: EditMessageReducer,
+		newMediaMessage: NewMediaMessageReducer,
+		onlineUsers: OnlineUsersReducer,
 	},
 });
 

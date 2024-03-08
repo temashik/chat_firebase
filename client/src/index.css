@@ -4,6 +4,24 @@ body {
   color: whitesmoke !important; 
 }
 
+input[type="file"] {
+  display: none;
+}
+
+.add-file {
+  position: relative;
+  top: 15%;
+  left: 9%;
+  height: 30px;
+  transition: transform 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+.media-file {
+  width: 50%;
+  height: 50%;
+}
+
 input {
   border-color: rgb(176, 92, 255);
   width: 100%;
@@ -110,7 +128,7 @@ input {
 
 .message.self {
   color: white;
-  background: #00bd9b;
+  background: #7c1afc;
 }
 
 .message-footer {

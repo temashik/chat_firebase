@@ -8,6 +8,7 @@ export interface IMessageData {
 	msgId: string;
 	sender: string;
 	text: string;
+	media?: any;
 }
 
 export interface IMessagesState {

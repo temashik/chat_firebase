@@ -1,6 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../axios";
 
+const user =
+	localStorage.getItem("user") === null
+		? null
+		: JSON.parse(localStorage.getItem("user")!);
 export interface IUserCredentials {
 	login: string;
 	password: string;
@@ -27,7 +31,7 @@ export const loginUser = createAsyncThunk(
 );
 
 const initialState: IUserState = {
-	user: null,
+	user: user,
 	loading: false,
 	error: "",
 };
@@ -38,6 +42,7 @@ export const userSlice = createSlice({
 	reducers: {
 		logout: (state) => {
 			state.user = null;
+			localStorage.removeItem("user");
 		},
 	},
 	extraReducers: (builder) => {
@@ -51,6 +56,7 @@ export const userSlice = createSlice({
 				state.user = action.payload;
 				state.loading = false;
 				state.error = null;
+				localStorage.setItem("user", JSON.stringify(state.user));
 			})
 			.addCase(loginUser.rejected, (state, action) => {
 				state.user = null;
