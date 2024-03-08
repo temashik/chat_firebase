@@ -3,7 +3,7 @@ POST http://localhost:8000/users/register
 Content-Type: application/json
 
 {
-	"login": "bulldog",
+	"login": "john",
 	"firstName": "John",
 	"lastName": "Doe",
 	"password": "test"
@@ -15,5 +15,14 @@ Content-Type: application/json
 
 {
 	"login": "jane",
-	"password": "test"
+	"password": "qweqwe"
 }
+
+### GetOneUser
+GET http://localhost:8000/users/user/dave
+Content-Type: application/json
+
+
+### GetAllUsers
+GET http://localhost:8000/users/users
+Content-Type: application/json

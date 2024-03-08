@@ -1,12 +1,10 @@
 const { db } = require("../firebase.js");
 const { v4: uuidv4 } = require('uuid');
+const { doc, setDoc, query, collection, where, getDocs, getDoc } = require("firebase/firestore");
 
 async function createChat(firstUser, secondUser) {
-	const chatRef = db.collection('chat');
-	const querySnapshots = await chatRef
-	.where('users', 'array-contains-any', [firstUser, secondUser])
-	// .where('users', 'array-contains', secondUser)
-	.get();
+	const q = query(collection(db, 'chat'), where('users', 'array-contains-any', [firstUser, secondUser]));
+	const querySnapshots = await getDocs(q);
 	if (!querySnapshots.empty) {
 		const document = [];
 		querySnapshots.forEach((doc) => {
@@ -18,29 +16,27 @@ async function createChat(firstUser, secondUser) {
 			return document[0];
 		} else {
 			const id = uuidv4()
-			await chatRef.doc(id).set({
+			await setDoc(doc(db, 'chat', id), {
 				users: [firstUser, secondUser],
 				chatId: id
 			});
-			const chat = await chatRef.doc(id).get();
+			const chat = await getDoc(doc(db, 'chat', id));
 			return chat.data();
 		}
  	} else {
 		const id = uuidv4()
-		await chatRef.doc(id).set({
-			users: [firstUser, secondUser],
-			chatId: id
-		});
-		const chat = await chatRef.doc(id).get();
+		await setDoc(doc(db, 'chat', id), {
+				users: [firstUser, secondUser],
+				chatId: id
+			});
+			const chat = await getDoc(doc(db, 'chat', id));
 		return chat.data();
 	 }
 }
 
 async function findUserChats(user) {
-	const chatRef = db.collection('chat');
-	const querySnapshots = await chatRef
-	.where('users', 'array-contains', user)
-	.get();
+	const q = query(collection(db, 'chat'), where('users', 'array-contains', user));
+	const querySnapshots = await getDocs(q);
 	if (!querySnapshots.empty) {
 		const documents = [];
 		querySnapshots.forEach((doc) => {
@@ -53,12 +49,9 @@ async function findUserChats(user) {
 }
 
 async function findChat(id) {
-	const chatRef = db.collection('chat');
-	const querySnapshots = await chatRef
-	.where('id', '==', id)
-	.get();
-	if (!querySnapshots.empty) {
-		return querySnapshots.docs[0].data();
+	const querySnapshot = await getDoc(doc(db, 'chat', id));
+	if (!querySnapshot.empty) {
+		return querySnapshot.data();
 	} else {
 		return null;
 	}

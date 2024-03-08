@@ -1,12 +1,22 @@
 const express = require('express');
 const { createMessage, getAllMessages, editMessage, deleteMessage } = require('../controllers/messageController');
+// const processFiles = require('../multer');
 
+const multer = require('multer');
+
+const storage = multer.memoryStorage();
+let processFiles = multer({storage: storage});
 const MessageRouter = express.Router();
 
-MessageRouter.post('/create', async (req, res) => {
+MessageRouter.post('/create', processFiles.array('files', 5), async (req, res) => {
 	try{
-		const message = await createMessage(req.body.sender, req.body.chatId, req.body.text);
-		res.status(200).send('ok');
+		if (req.files) {
+			const message = await createMessage(req.body.sender, req.body.chatId, req.body.text, req.files);
+			res.status(200).send('ok');
+		} else {
+			const message = await createMessage(req.body.sender, req.body.chatId, req.body.text);
+			res.status(200).send('ok');
+		}
 	} catch(e) {
 		res.status(500).send(e.message);
 	}
@@ -37,6 +47,7 @@ MessageRouter.delete('/delete', async (req, res) => {
 		const result = await deleteMessage(req.body.msgId);
 		res.status(200).send('ok');
 	} catch(e) {
+		console.log(e.message);
 		res.status(500).send(e.message);
 	}
 })

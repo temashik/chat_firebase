@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ### GetAllMessages
-GET  http://localhost:8000/messages/all/9ee47bce-4802-4ddf-b2b6-660edc3888b6
+GET  http://localhost:8000/messages/all/b58f6dc2-bec3-4d7d-902c-5bd6df29afea
 Content-Type: application/json
 
 ### EditMessage
@@ -17,7 +17,7 @@ PATCH   http://localhost:8000/messages/edit
 Content-Type: application/json
 
 {
-	"msgId": "b65c6d25-8de5-49ff-aed6-e1054631fbc7",
+	"msgId": "7e74acba-b33a-4ec1-b234-519eb1b396c6",
 	"newText": "Hi!!"
 }
 
@@ -26,5 +26,5 @@ DELETE    http://localhost:8000/messages/delete
 Content-Type: application/json
 
 {
-	"msgId": "b65c6d25-8de5-49ff-aed6-e1054631fbc7"
+	"msgId": "4ca7d32f-5ca1-477c-9054-f02183454787"
 }

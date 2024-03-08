@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
 	"firstUser": "dave",
-	"secondUser": "bob"
+	"secondUser": "lucy"
 }
 
 ### GetAllUserChats
@@ -12,5 +12,5 @@ GET  http://localhost:8000/chats/userChats/dave
 Content-Type: application/json
 
 ### FindChat
-GET  http://localhost:8000/chats/chat/fd5a2f88-63a9-41c1-91ba-7d9c83daea6e
+GET  http://localhost:8000/chats/chat/57445d60-7b6d-4b9a-8adb-acd3e38df96d
 Content-Type: application/json

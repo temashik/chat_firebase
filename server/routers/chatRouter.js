@@ -8,7 +8,7 @@ ChatsRouter.post('/create', async (req, res) => {
 		const chat = await createChat(req.body.firstUser, req.body.secondUser);
 		res.json(chat);
 	} catch(e) {
-		res.status(500).message(e.message)
+		res.status(500).send(e.message)
 	}
 });
 
@@ -17,7 +17,7 @@ ChatsRouter.get('/userChats/:user', async (req, res) => {
 		const chats = await findUserChats(req.params.user);
 		res.json(chats);
 	} catch(e) {
-		res.status(500).message(e.message)
+		res.status(500).send(e.message)
 	}
 });
 
@@ -26,7 +26,7 @@ ChatsRouter.get('/chat/:id', async (req, res) => {
 		const chat = await findChat(req.params.id);
 		res.json(chat);
 	} catch(e) {
-		res.status(500).message(e.message)
+		res.status(500).send(e.message)
 	}
 })
 

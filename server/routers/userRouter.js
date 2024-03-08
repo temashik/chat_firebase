@@ -45,7 +45,7 @@ UsersRouter.get('/user/:login', async (req, res) => {
 		const user = await getOneUser(req.params.login);
 		res.json(user);
 	} catch(e) {
-		res.status(500).message(e.message)
+		res.status(500).send(e.message)
 	}
 });
 
@@ -54,7 +54,7 @@ UsersRouter.get('/users', async (req, res) => {
 		const users = await getAllUsers();
 		res.json(users);
 	} catch(e) {
-		res.status(500).message(e.message)
+		res.status(500).send(e.message)
 	}
 });
 
