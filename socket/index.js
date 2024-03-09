@@ -16,10 +16,10 @@ io.on("connection", (socket) => {
   });
 
   // listen to new message
-  socket.on('sendMessage', (recipientLogin) => {
-	const onlineUser = onlineUsers.find(user => user.login == recipientLogin);
+  socket.on('sendMessage', (data) => {
+	const onlineUser = onlineUsers.find(user => user.login == data.recipientLogin);
 	if (onlineUser) {
-		io.to(onlineUser.socketId).emit('getMessage', true);
+		io.to(onlineUser.socketId).emit('getMessage', data.message);
 	}
   })
 

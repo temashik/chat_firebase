@@ -12,6 +12,10 @@ Content-Type: application/json
 GET  http://localhost:8000/messages/all/b58f6dc2-bec3-4d7d-902c-5bd6df29afea
 Content-Type: application/json
 
+### GetLatestMessage
+GET  http://localhost:8000/messages/latest/57445d60-7b6d-4b9a-8adb-acd3e38df96d
+Content-Type: application/json
+
 ### EditMessage
 PATCH   http://localhost:8000/messages/edit
 Content-Type: application/json

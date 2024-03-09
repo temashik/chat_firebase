@@ -1,7 +1,7 @@
 const { db, storage } = require("../firebase.js");
 const { v4: uuidv4 } = require('uuid');
 const {ref: storageRef, uploadBytesResumable, getDownloadURL, deleteObject} = require("firebase/storage");
-const { doc, setDoc, deleteDoc, query, collection, where, getDocs, getDoc, serverTimestamp } = require("firebase/firestore");
+const { doc, setDoc, deleteDoc, query, collection, where, getDocs, getDoc, serverTimestamp, orderBy, limit } = require("firebase/firestore");
 
 async function createMessage(sender, chatId, text, media=0) {
 	const id = uuidv4();
@@ -26,6 +26,8 @@ async function createMessage(sender, chatId, text, media=0) {
 		created: serverTimestamp(),
 		edited: null
 	});
+	const querySnapshot = await getDoc(doc(db, 'messages', id));
+	return querySnapshot.data();
 }
 
 async function getAllMessages(chatId) {
@@ -39,7 +41,7 @@ async function getAllMessages(chatId) {
 		media: doc.data().media,
 		msgId: doc.data().msgId,
 		created: doc.data().created.toDate().toLocaleString(),
-		edited: doc.data().edited ? doc.data().edited.toDate().toLocaleString() : null
+		edited: doc.data().edited === null ? null : doc.data().edited.toDate().toLocaleString()
 		};
 	});
 	return documents;
@@ -66,4 +68,14 @@ async function deleteMessage(msgId) {
 	return result;
 }
 
-module.exports = { createMessage, getAllMessages, editMessage, deleteMessage };
+async function getLatestMessage(chatId) {
+	const q = query(collection(db, 'messages'), where('chatId', '==', chatId), orderBy('created', 'desc'), limit(1));
+	const querySnapshot = await getDocs(q);
+	if(!querySnapshot.empty) {
+		return querySnapshot.docs[0].data();
+	} else {
+		return null;
+	}
+}
+
+module.exports = { createMessage, getAllMessages, editMessage, deleteMessage, getLatestMessage };
