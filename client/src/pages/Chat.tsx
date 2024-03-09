@@ -41,7 +41,7 @@ function Chat() {
                   dispatch(setCurrentChat(chat));
                   setActiveChat(index);
                 }}>
-                  <UserChat recipient={recipient}/>
+                  <UserChat recipient={recipient} chatId={chat.chatId}/>
                 </div>
               )
             })}

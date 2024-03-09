@@ -10,6 +10,7 @@ import DeleteMessageReducer from "./slices/deleteSlice";
 import EditMessageReducer from "./slices/editSlice";
 import NewMediaMessageReducer from "./slices/newMediaMessageSlice";
 import OnlineUsersReducer from "./slices/onlineUsersSlice";
+import LatestMessageReducer from "./slices/latestMessageSlice";
 import { useDispatch } from "react-redux";
 
 export const store = configureStore({
@@ -25,6 +26,7 @@ export const store = configureStore({
 		editMessage: EditMessageReducer,
 		newMediaMessage: NewMediaMessageReducer,
 		onlineUsers: OnlineUsersReducer,
+		latestMessage: LatestMessageReducer,
 	},
 });
 

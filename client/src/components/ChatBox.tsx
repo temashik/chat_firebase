@@ -49,12 +49,15 @@ function ChatBox() {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   	const open = Boolean(anchorEl);
   	const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-		console.log(event.currentTarget);
     	setAnchorEl(event.currentTarget);
   	};
  	 const handleClose = () => {
     	setAnchorEl(null);
   	};
+	const handleDelete = (deleteMessageId: string, text: string) => {
+		dispatch(deleteNewMessage(deleteMessageId));
+		setAnchorEl(null);
+	}
 	const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setFileList(e.target.files);
 	}
@@ -74,7 +77,8 @@ function ChatBox() {
 			form.append('sender', user?.login);
 			form.append('chatId', currentChat?.chatId);
 			form.append('text', textMessage);
-			dispatch(createNewMediaMessage(form))
+			dispatch(createNewMediaMessage(form));
+			setFileList(null)
 			setTextMessage('');
 		} else {
 			if(textMessage !== '' && user && currentChat){
@@ -136,6 +140,7 @@ function ChatBox() {
 				<span className="message-footer">{msg.edited?.toString() ? 'edited at ' + msg.edited.toString() : msg.created.toString()}</span>
 				<IconButton
 			        aria-label="more"
+					key={"fade-button" + msg.msgId}
 			        id={"fade-button" + msg.msgId}
 			        aria-controls={open ? 'long-menu' : undefined}
 			        aria-expanded={open ? 'true' : undefined}
@@ -146,16 +151,17 @@ function ChatBox() {
       </IconButton>
 	  </Stack>
 				<Menu
-			        id="fade-menu"
+					key={"fade-menu" + msg.msgId}
+			        id={"fade-menu" + msg.msgId}
 			        MenuListProps={{
-			          'aria-labelledby': 'fade-button',
+			          'aria-labelledby': 'fade-button' + msg.msgId,
 			        }}
 			        anchorEl={anchorEl}
 			        open={open}
 			        onClose={handleClose}
 			        TransitionComponent={Fade}
 			      >
-			      <MenuItem onClick={() => {
+			      <MenuItem key={'edit' + msg.msgId} onClick={() => {
 					if(user.login === msg.sender) {		/// can edit only own messages
 						setIsEdit(true);
 						setMessageId(msg.msgId)
@@ -165,10 +171,7 @@ function ChatBox() {
 						setAnchorEl(null);
 					}
 				  }}>Edit</MenuItem>
-			      <MenuItem onClick={() => {
-					dispatch(deleteNewMessage(msg.msgId));
-					setAnchorEl(null);
-				  }}>Delete</MenuItem>
+			      <MenuItem key={'delete' + msg.msgId} onClick={() => {handleDelete(msg.msgId, msg.text)}}>Delete</MenuItem>
 			    </Menu>
 			</Stack>
 			)
